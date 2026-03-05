@@ -9,4 +9,4 @@ Onlineshop för fiske. Planerade funktioner nedan:
 - Varukorg som sparas med hjälp av localstorage
 - Webbsidans funktion på olika enheter (Mobil/Ipad)
 - Någon gratis AI implementation som beskriver hur man använder produkten (annars har det beskrivet)
-Eventuellt fler funktioner.
+- Eventuellt fler funktioner.
