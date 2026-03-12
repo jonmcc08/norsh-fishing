@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+header {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+    padding-bottom: 0px;
+    background-color: rgb(199, 199, 199);
+    position: fixed;
+    top: 0;
+}
+
+.company {
+    font-size: 20px;
+    font-family: "Indie flower", cursive;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    background-color: black;
+}
+
+.box {
+    padding-left: 0;
+    background-color: black;
+    padding: 10px 20px;
+    font-size: 20px;
+    border: 2px solid transparent 
+}
+
+.box a {
+    color: white;
+    text-decoration: none;
+}
+
+.box:hover{
+    border-color: white;
+}
+
+.current {
+    background-color: gray;
+}
