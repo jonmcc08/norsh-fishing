@@ -8,10 +8,17 @@ async function apiData() {
 
     for (let i = 0; i < api.products.length; i++) {
         const div = document.createElement("div");
+        div.classList.add("productPage")
+        div.id = api.products[i].id
         div.innerHTML = `
-        ${api.products[i].name} <br>
-        ${api.products[i].price} <br>
-        ${api.products[i].productDescription}
+        <a href="../products/?id=${api.products[i].id}">
+            <img class="productImage" src="https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI${api.products[i].imageLink}">
+            <h3 class="productName pLeft">${api.products[i].name}</h3>
+            <div class="productInfo pLeft">
+                <p class="productDescription"><i class="fa-solid fa-table-list"></i>${api.products[i].productDescription}</p>
+                <p class="productPrice">${api.products[i].price} kr</p>
+            </div>
+        </a>
         ` // FUNGERAR
         products.appendChild(div)
     }

@@ -54,6 +54,7 @@ header {
 }
 
 .searchBar {
+    margin-top: 190px;
     display: flex;
     justify-content: center;
 }
