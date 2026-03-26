@@ -41,3 +41,38 @@ a {
     text-decoration: none;
     color: black;
 }
+
+.buttonInput {
+    border: 0;
+    cursor: pointer;
+    background-color: rgb(190, 190, 190);
+}
+
+.buttonInput:hover {
+    background-color: gray;
+}
+
+.searchBar {
+    margin-top: 190px;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border-radius: 14px;
+    border-style: solid;
+    overflow: hidden;
+}
+
+#search {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 0;
+}
+
+.searchSvg {
+    height: 2em;
+    width: 2em;
+    margin: 0 10px;
+}
