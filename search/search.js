@@ -4,7 +4,7 @@ async function apiData() {
     const api = await response.json();
     console.log(api);
 
-    let products = document.getElementById("products");
+    const products = document.getElementById("products");
 
     for (let i = 0; i < api.products.length; i++) {
         const div = document.createElement("div");
