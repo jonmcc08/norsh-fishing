@@ -15,7 +15,7 @@ async function apiData() {
             productimage = `https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI${api.products[i].imageLink}`;
         };
         div.innerHTML = `
-        <a href="../products/?id=${api.products[i].id}">
+        <a href="../products/index.html?id=${api.products[i].id}">
             <img class="productImage" src="${productimage}">
             <h3 class="productName pLeft">${api.products[i].name}</h3>
             <div class="productInfo pLeft">

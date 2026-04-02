@@ -1,0 +1,21 @@
+.failedLoad {
+    display: flex;
+    justify-content: center;
+    color: red;
+    font-size: 20px;
+    margin-top: auto;
+}
+
+.productPage {
+    display: flex;
+    justify-content: center;
+}
+
+.productImage {
+    width: 400px;
+    height: 300px;
+}
+
+.left {
+    margin-right: 100px;
+}
