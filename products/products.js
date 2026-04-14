@@ -45,5 +45,15 @@ async function apiData() {
         `;
     };
     page.appendChild(div);
+
+    let btn = document.getElementById("cart")
+    btn.addEventListener("click", function (e) {
+        let currentCart = JSON.parse(localStorage.getItem("cart")) || [];
+        currentCart.push(productId)
+        localStorage.setItem("cart", JSON.stringify(currentCart))
+    })
 };
+
 apiData();
+
+// Detta är för att hantera varukorgen.

@@ -1,9 +1,8 @@
-// Detta är för att hantera varukorgen.
+let cartAmount = JSON.parse(localStorage.getItem("cart")) || []
+let checkout = document.getElementById("checkout")
 
-let btn = document.getElementById("cart")
-let cartAmount = localStorage.getItem("cart")
+console.log(cartAmount)
 
-
-btn.addEventListener("click", function (e) {
-    console.log(e)
+checkout.addEventListener("focus", function (e) {
+    
 })
