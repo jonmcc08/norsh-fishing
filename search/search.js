@@ -1,3 +1,5 @@
+
+
 async function apiData() {
 
     const response = await fetch("https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI/products.json");
@@ -10,7 +12,7 @@ async function apiData() {
         const div = document.createElement("div");
         div.classList.add("productPage");
         div.id = api.products[i].id;
-        let productimage = "No_Image_Available.jpg";
+        let productimage = "../No_Image_Available.jpg";
         if (api.products[i].imageLink !== "/images/") {
             productimage = `https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI${api.products[i].imageLink}`;
         };
@@ -28,10 +30,7 @@ async function apiData() {
     }
 }
 
-apiData(); // W.I.P (Testar att anropa "API"n)
-
-// FIXA SÅ ATT DEN OCKSÅ ANVÄNDER BILDER FRÅN GITHUB PAGEN OCH ÄVEN FIXA MED CSS DECORATION FÖR PRODUCTERNA
-
+apiData();
 const btn = document.getElementById("searchBtn");
 const searchValue = document.getElementById("search");
 
@@ -42,3 +41,12 @@ btn.addEventListener("click", function (e) {
         window.location.href = ""
     }
 })
+
+const searchParams = new URLSearchParams(window.location.search)
+
+if (searchParams.size === 0) {
+    console.log("Test")
+} else {
+    console.log(searchParams)
+}
+ // W.I.P (Testar att anropa "API"n)

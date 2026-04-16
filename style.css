@@ -35,15 +35,15 @@ header {
     border: 2px solid transparent
 }
 
+.whiteBorder {
+    border-color: white;
+}
+
 .box a {
     display: flex;
     align-items: center;
     color: white;
     text-decoration: none;
-}
-
-.box:hover{
-    border-color: white;
 }
 
 .current {
@@ -70,7 +70,7 @@ header {
     margin: 0;
 }
 
-.container {
+#container {
     position: relative;
 }
 
@@ -81,5 +81,19 @@ header {
     height: 300px;
     width: 300px;
     background-color: white;
-    z-index: 5;
+    overflow-y: auto;
+}
+
+.checkoutProduct {
+    width: 100%;
+
+}
+
+.hidden {
+    display: none;
+}
+
+.checkoutImageSize {
+    width: 100px;
+    height: 70px;
 }

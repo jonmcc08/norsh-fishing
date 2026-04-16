@@ -20,10 +20,12 @@ async function apiData() {
         div.innerHTML = `
         <h1>Failed to load product</h1>
         `;
+        page.appendChild(div);
+        return;
     } else {
         let image = apiLink + product.imageLink;
         if(image === apiLink + "/images/") {
-            image = "../search/No_Image_Available.jpg";
+            image = "../No_Image_Available.jpg";
         };
         console.log(image);
         div.classList.add("productPage");
@@ -43,8 +45,8 @@ async function apiData() {
             <button id="cart"><img class="svgImg" src="../svg/cart-shopping-solid-full.svg"> Add to Cart</button>
         </div>
         `;
+        page.appendChild(div);
     };
-    page.appendChild(div);
 
     let btn = document.getElementById("cart")
     btn.addEventListener("click", function (e) {
@@ -55,5 +57,3 @@ async function apiData() {
 };
 
 apiData();
-
-// Detta är för att hantera varukorgen.
