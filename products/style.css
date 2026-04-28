@@ -1,11 +1,3 @@
-.failedLoad {
-    display: flex;
-    justify-content: center;
-    color: red;
-    font-size: 20px;
-    margin-top: auto;
-}
-
 .productPage {
     display: flex;
     justify-content: center;
@@ -18,4 +10,8 @@
 
 .left {
     margin-right: 100px;
+}
+
+.content {
+    margin-top: 180px;
 }

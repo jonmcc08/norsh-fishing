@@ -50,10 +50,6 @@ header {
     background-color: gray;
 }
 
-.content {
-    margin-top: 180px;
-}
-
 .about {
     display: flex;
     justify-content: center;
@@ -97,3 +93,12 @@ header {
     width: 100px;
     height: 70px;
 }
+
+.failedLoad {
+    display: flex;
+    justify-content: center;
+    color: red;
+    font-size: 20px;
+    margin-top: auto;
+}
+

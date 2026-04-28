@@ -40,18 +40,27 @@
             </div>
         </div>
     </header>
-    <div class="content">
-        <div class="searchBar">
-            <input type="search" id="search" autocomplete="off" placeholder="Search for a product">
-            <button id="searchBtn" class="buttonInput">
-                <img src="../svg/magnifying-glass-solid-full.svg" class="searchSvg">
-            </button>
-        </div>
-        <div id="products">
+    <div class="contentContainer">
+        <div id="filterContainer" class="filterTab filterClosed">
+                <img src="../svg/bars-solid-full.svg" id="filter">
+                <div id="filters">
+                
+                </div>
+            </div>
+        <div class="content">
+            <div class="searchBar">
+                <input type="search" id="search" autocomplete="off" placeholder="Search for a product">
+                <button id="searchBtn" class="buttonInput">
+                    <img src="../svg/magnifying-glass-solid-full.svg" class="searchSvg">
+                </button>
+            </div>
+            <div id="products">
 
+            </div>
         </div>
     </div>
     <script src="https://kit.fontawesome.com/94f8ad4860.js" crossorigin="anonymous"></script>
     <script src="search.js"></script>
+    <script src="filter.js"></script>
 </body>
 </html>
