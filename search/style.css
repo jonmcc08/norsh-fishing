@@ -74,7 +74,7 @@ a {
 
 .filterTab {
     left: 0;
-    margin-top: 0px;
+    margin-top: 20px;
 }
 
 .searchSvg {
@@ -89,6 +89,7 @@ a {
     margin: 0 10px;
     border-radius: 50%;
     cursor: pointer;
+    z-index: 1;
 }
 
 #filter:hover {
@@ -96,20 +97,19 @@ a {
 }
 
 #filters {
-    margin-top: -53px;
-    height: 100vh;
+    margin-top: -58px;
+    height: 100em;
     width: 0px;
-    background-color: brown;
+    background-color: rgb(214, 214, 214);
     transition: width 0.3s ease;
 }
 
 .contentContainer {
-    margin-top: 180px;
     display: flex;
     align-items: flex-start;
 }
 
-.content {
+.searchContent {
     width: 100%;
 }
 

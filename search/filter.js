@@ -7,7 +7,7 @@ filter.addEventListener("click", function(e) {
     if(!enabled) {
         console.log("Opening")
         filterContainer.classList.remove("filterClosed")
-        filterTab.style.width = "300px"
+        filterTab.style.width = "350px"
         filter.src = "../svg/x-solid-full.svg"
         enabled = true
     } else {

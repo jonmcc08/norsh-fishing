@@ -26,7 +26,7 @@ async function apiData(search, searchTerm) {
         const div = document.createElement("div");
         div.classList.add("productPage");
         div.id = productList[i].id
-        let productimage = "../No_Image_Available.jpg";
+        let productimage = "../images/No_Image_Available.jpg";
         if (productList[i].imageLink !== "/images/") {
             productimage = `https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI${productList[i].imageLink}`;
         };

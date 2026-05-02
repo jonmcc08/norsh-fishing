@@ -10,7 +10,7 @@ async function apiData() {
     const response = await fetch(apiLink + "/products.json");
     const api = await response.json();
 
-    const page = document.getElementById("page");
+    const page = document.getElementById("content");
     const product = api.products.find(p => p.id === productId);
 
     console.log(product);
@@ -25,7 +25,7 @@ async function apiData() {
     } else {
         let image = apiLink + product.imageLink;
         if(image === apiLink + "/images/") {
-            image = "../No_Image_Available.jpg";
+            image = "../images/No_Image_Available.jpg";
         };
         console.log(image);
         div.classList.add("productPage");

@@ -13,7 +13,7 @@
         <div class="company">
             <h1>Norse Fishing</h1>
         </div>
-        <div class="links">
+        <div id="links">
             <div class="box">
                 <a href="../index.html">Home</a>
             </div>
@@ -35,19 +35,24 @@
             <div class="box">
                 <a href="../contact/index.html">Contact Us</a>
             </div>
-            <div class="box">
-                <a href="../checkout/index.html"><img src="../svg/cart-shopping-solid-full.svg" class="svgImg"> Cart</a>
+            <div id="checkoutContainer">
+                <div class="box" id="checkoutBox">
+                    <a href="../checkout/index.html"><img src="../svg/cart-shopping-solid-full.svg" class="svgImg"> Cart</a>
+                </div>
+                <div class="dropdown hidden" id="checkout">
+                    
+                </div>
             </div>
         </div>
     </header>
-    <div class="contentContainer">
+    <div id="content" class="contentContainer">
         <div id="filterContainer" class="filterTab filterClosed">
                 <img src="../svg/bars-solid-full.svg" id="filter">
                 <div id="filters">
                 
                 </div>
             </div>
-        <div class="content">
+        <div class="searchContent">
             <div class="searchBar">
                 <input type="search" id="search" autocomplete="off" placeholder="Search for a product">
                 <button id="searchBtn" class="buttonInput">
@@ -59,7 +64,7 @@
             </div>
         </div>
     </div>
-    <script src="https://kit.fontawesome.com/94f8ad4860.js" crossorigin="anonymous"></script>
+    <script src="../script.js"></script>
     <script src="search.js"></script>
     <script src="filter.js"></script>
 </body>
