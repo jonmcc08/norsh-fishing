@@ -97,11 +97,13 @@ a {
 }
 
 #filters {
-    margin-top: -58px;
+    display: flex;
+    flex-direction: column;
     height: 100em;
     width: 0px;
     background-color: rgb(214, 214, 214);
     transition: width 0.3s ease;
+    overflow: hidden;
 }
 
 .contentContainer {
@@ -116,4 +118,14 @@ a {
 .filterClosed{
     position: absolute;
     top: 180px;
+}
+
+.filterItem {
+    display: flex;
+    align-items: center;
+    background-color: rgb(78, 78, 78);
+}
+
+#filterBar {
+    background-color: rgb(78, 78, 78);
 }

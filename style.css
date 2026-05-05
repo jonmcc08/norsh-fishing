@@ -27,6 +27,7 @@ header {
 
 #links {
     display: flex;
+    overflow: hidden;
     justify-content: center;
     background-color: black;
     transition: height 0.1s ease;
@@ -93,6 +94,8 @@ header {
 }
 
 .checkoutProduct {
+    display: flex;
+    align-items: flex-start;
     width: 100%;
     border-style: solid none;
     border-color: gray;
@@ -108,6 +111,52 @@ header {
 .checkoutImageSize {
     width: 80px;
     height: 50px;
+}
+
+.checkoutAmount {
+    display: inline-flex;
+    align-items: center;
+    background: rgb(242, 242, 242);
+    border-radius: 25px;
+    width: 75px;
+    height: 24px;
+    border: 1px solid rgb(221, 221, 221);
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+.checkoutBtn {
+    flex: 0 0 24px; 
+    height: 100%;
+    border: none;
+    font-size: 16px;
+    background: white;
+    color: rgb(58, 56, 56);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.checkoutBtn:hover {
+    background: rgb(215, 212, 212);
+}
+
+.checkoutAmount span {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.minusBtn {
+    border-right: 1px solid #ddd;
+}
+
+.plusBtn {
+    border-left: 1px solid #ddd;
 }
 
 .failedLoad {

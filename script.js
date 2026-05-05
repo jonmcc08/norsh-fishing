@@ -1,11 +1,10 @@
-const cartAmount = JSON.parse(localStorage.getItem("cart")) || []
+let checkoutData = JSON.parse(localStorage.getItem("cart")) || []
 const checkout = document.getElementById("checkout")
 const containerCheckout = document.getElementById("checkoutContainer")
 const box = document.getElementById("checkoutBox")
 const page = document.getElementById("content")
 
 const navBar = document.getElementById("links")
-console.log(cartAmount)
 
 async function checkoutApiData() {
 
@@ -13,22 +12,31 @@ async function checkoutApiData() {
     const response = await fetch(apiLink + "/products.json");
     const api = await response.json();
 
-    const checkoutData = JSON.parse(localStorage.getItem("cart"))
-    console.log("Data for checkout: " + checkoutData)
+    console.log("Data for checkout:")
+    console.log(checkoutData)
 
+    checkoutData = JSON.parse(localStorage.getItem("cart")) 
+
+    checkout.innerHTML = ""
+    
     if (checkoutData === null) {
         const div = document.createElement("div")
         console.log("No Items.")
         div.innerHTML = `Test`
         checkout.appendChild(div)
     } else {
-        for (let i = 0; i < checkoutData.length; i++) {
+        const amountNumbers = checkoutData.reduce((key, id) => {
+            key[id] = (key[id] || 0) + 1
+            return key
+        }, {})
+        console.log(amountNumbers)
+        for (const productId in amountNumbers) {
+
+            const productQuantity = amountNumbers[productId]
             const div = document.createElement("div")
             div.classList.add("checkoutProduct")
-            let productId = checkoutData[i]
-            let product = api.products.find(p => p.id === productId)
-            
-            let productImage = "No_Image_Available.jpg"
+            let product = api.products.find(p => p.id === Number(productId))
+            let productImage = "images/No_Image_Available.jpg"
 
             if (product.imageLink !== "/images/") {
                 productImage = `https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI${product.imageLink}`;
@@ -39,17 +47,28 @@ async function checkoutApiData() {
                 <img src="${productImage}" class="checkoutImageSize">
             </div>
             <div class="checkoutDetails">
-                <div class="checkoutProduct">
+                <div class="checkoutName">
                     <h3>${product.name}</h3>
                 </div>
                 <div class="checkoutAmount">
-                    
+                    <button class="checkoutBtn minusBtn" btn-id="${productId}">-</button>
+                    <span>${productQuantity}</span>
+                    <button class="checkoutBtn plusBtn" btn-id="${productId}">+</button>
                 </div>
+                <div class="">
             </div>
             `
             console.log("Adding current product: " + product.name)
             checkout.appendChild(div)
         }
+        const div = document.createElement("div")
+        div.classList.add("bottomCheckout")
+        div.innerHTML = `
+        <button>Checkout</button>
+        <button id="clearCart">Clear cart</button>
+        `
+        checkout.appendChild(div)
+        cartRendered()
     }
 }
 
@@ -59,7 +78,6 @@ containerCheckout.addEventListener("mouseenter", function (e) {
     box.classList.add("whiteBorder")
     checkoutApiData()
     console.log("Not Hidden")
-    
 })
 
 containerCheckout.addEventListener("mouseleave", function(e) {
@@ -67,13 +85,43 @@ containerCheckout.addEventListener("mouseleave", function(e) {
     navBar.style.overflow = "hidden"
     box.classList.remove("whiteBorder")
     console.log("Hidden")
-    checkout.innerHTML = ""
 })
 
 page.addEventListener("wheel", function(e) {
-    if (e.deltaY > 0) {
+    if (e.deltaY > 20) {
         navBar.style.height = "0px"
     } else if (e.deltaY < 0) {
         navBar.style.height = "43px"
     }
+})
+
+function cartRendered() {
+    const clearCartBtn = document.getElementById("clearCart")
+
+    clearCartBtn.addEventListener("click", function(e) {
+        localStorage.removeItem("cart")
+        cartAmount = []
+        checkoutApiData()
+    })
+}
+
+checkout.addEventListener("click", function (e) {
+    const id = e.target.getAttribute("btn-id");
+    if(!id) {
+        return
+    }
+    console.log(id)
+
+    if (e.target.classList.contains("plusBtn")) {
+        checkoutData.push(Number(id))
+        console.log("Added")
+    } else if (e.target.classList.contains("minusBtn")) {
+        const index = checkoutData.indexOf(Number(id));
+        if (index > -1) {
+            console.log("Removed")
+            checkoutData.splice(index, 1)
+        }
+    }
+    localStorage.setItem("cart", JSON.stringify(checkoutData));
+    checkoutApiData()
 })

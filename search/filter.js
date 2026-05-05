@@ -18,3 +18,14 @@ filter.addEventListener("click", function(e) {
         enabled = false
     }
 })
+
+// Test för slider
+const minBar = document.getElementById("barMin")
+const maxBar = document.getElementById("barMax")
+const minBarTxt = document.getElementById("barMinTxt")
+const maxBarTxt = document.getElementById("barMaxTxt")
+
+minBar.addEventListener("input", function() {
+    console.log("Test")
+    minBarTxt.href = `${minBar.value}`
+})
