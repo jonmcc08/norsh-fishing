@@ -1,25 +1,29 @@
 const btn = document.getElementById("searchBtn");
 const searchValue = document.getElementById("search");
 const searchParams = new URLSearchParams(window.location.search);
+let productList = []
 
-async function apiData(search, searchTerm) {
+async function apiData(term, string) {
 
     const response = await fetch("https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI/products.json");
     const api = await response.json();
     const productsPage = document.getElementById("products");
-    
-    let productList = api.products
 
-    if (search) {
-        productList = searchListing(searchTerm.split(" "), productList)
+    if (term === 1) {
+        productList = searchListing(string.split(" "), productList)
         console.log(productList)
         if (productList.length == 0) {
             const div = document.createElement("div")
             div.classList.add("failedLoad")
-            div.innerHTML = "No items matched with: " + searchTerm
+            div.innerHTML = "No items matched with: " + string
             productsPage.appendChild(div)
             return
         }
+    } else if (term === 2) {
+        // Filter sectionen
+        console.log("Recieved: " + string)
+    } else {
+        productList = api.products
     }
 
     for (let i = 0; i < productList.length; i++) {
@@ -83,5 +87,5 @@ if (searchParams.size === 0) {
     console.log(searchTerm)
     searchValue.value = searchTerm
 
-    apiData(true, searchTerm.toLowerCase());
+    apiData(1, searchTerm.toLowerCase());
 }

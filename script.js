@@ -19,7 +19,7 @@ async function checkoutApiData() {
 
     checkout.innerHTML = ""
     
-    if (checkoutData === null) {
+    if (checkoutData === null || checkoutData.length === 0) {
         const div = document.createElement("div")
         console.log("No Items.")
         div.innerHTML = `Test`
@@ -29,17 +29,24 @@ async function checkoutApiData() {
             key[id] = (key[id] || 0) + 1
             return key
         }, {})
+        let fullPrice = 0
         console.log(amountNumbers)
         for (const productId in amountNumbers) {
 
             const productQuantity = amountNumbers[productId]
             const div = document.createElement("div")
-            div.classList.add("checkoutProduct")
-            let product = api.products.find(p => p.id === Number(productId))
+            const product = api.products.find(p => p.id === Number(productId))
             let productImage = "images/No_Image_Available.jpg"
 
+            const productPrice = (Number(product.price) * Number(productQuantity))
+            console.log(productPrice)
+
+            fullPrice += productPrice
+
+            div.classList.add("checkoutProduct")
+
             if (product.imageLink !== "/images/") {
-                productImage = `https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI${product.imageLink}`;
+                productImage = `https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI${product.imageLink}`
             }
 
             div.innerHTML = `
@@ -47,27 +54,31 @@ async function checkoutApiData() {
                 <img src="${productImage}" class="checkoutImageSize">
             </div>
             <div class="checkoutDetails">
-                <div class="checkoutName">
-                    <h3>${product.name}</h3>
+                <div>
+                    <h3 class="checkoutName">${product.name}</h3>
+                    <span>${product.productDescription}</span>
                 </div>
                 <div class="checkoutAmount">
                     <button class="checkoutBtn minusBtn" btn-id="${productId}">-</button>
                     <span>${productQuantity}</span>
                     <button class="checkoutBtn plusBtn" btn-id="${productId}">+</button>
                 </div>
-                <div class="">
             </div>
+            <div class="checkoutPrice">${productPrice} kr</div>
             `
             console.log("Adding current product: " + product.name)
             checkout.appendChild(div)
         }
-        const div = document.createElement("div")
-        div.classList.add("bottomCheckout")
-        div.innerHTML = `
-        <button>Checkout</button>
+
+
+        const bottomDiv = document.createElement("div")
+        bottomDiv.id = "bottomCheckout"
+        bottomDiv.innerHTML = `
         <button id="clearCart">Clear cart</button>
+        <button>Checkout</button>
+        <h3>Total: ${fullPrice} kr</h3>
         `
-        checkout.appendChild(div)
+        checkout.appendChild(bottomDiv)
         cartRendered()
     }
 }
