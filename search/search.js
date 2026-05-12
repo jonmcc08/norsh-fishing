@@ -1,30 +1,41 @@
 const btn = document.getElementById("searchBtn");
 const searchValue = document.getElementById("search");
 const searchParams = new URLSearchParams(window.location.search);
-let productList = []
 
-async function apiData(term, string) {
+let productList = []
+let originalList = []
+
+async function apiData(term, string, filterData) {
 
     const response = await fetch("https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI/products.json");
     const api = await response.json();
     const productsPage = document.getElementById("products");
 
+
     if (term === 1) {
-        productList = searchListing(string.split(" "), productList)
+        productList = searchListing(string.split(" "), api.products)
         console.log(productList)
         if (productList.length == 0) {
-            const div = document.createElement("div")
-            div.classList.add("failedLoad")
-            div.innerHTML = "No items matched with: " + string
+            const div = renderError("No items matched with: ")
             productsPage.appendChild(div)
             return
         }
+        originalList = productList
     } else if (term === 2) {
         // Filter sectionen
-        console.log("Recieved: " + string)
+        const temp = filterSorting(string, filterData, productList)
+        
     } else {
         productList = api.products
+        originalList = productList
     }
+
+    if(productList.length == 0) {
+        const div = 
+        productsPage.appendChild(div)
+        return
+    }
+
 
     for (let i = 0; i < productList.length; i++) {
         const div = document.createElement("div");
@@ -46,6 +57,13 @@ async function apiData(term, string) {
         `;
         productsPage.appendChild(div);
     }
+}
+
+function renderError(str) {
+    const div = document.createElement("div")
+    div.classList.add("failedLoad")
+    div.innerHTML = str
+    return div
 }
 
 function searchPress(e) {
@@ -75,6 +93,25 @@ function searchListing(searchTerm, products) {
             }
     }})
     return newProducts
+}
+
+function filterSorting(filter, data, items) {
+    if(data) {
+        for(let i = 0; i < items.length; i++) {
+            const item = items[i]
+            console.log(item.productType)
+            console.log(filter)
+            if(!(item.productType == filter)) {
+                console.log("Splicing")
+                productList.splice(i, 1)
+                console.log(productList)
+            }
+        }
+        console.log()
+    } else {
+        console.log(filter)
+        console.log(items)
+    }
 }
 
 btn.addEventListener("click", searchPress)

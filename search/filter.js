@@ -5,22 +5,21 @@ const filterBoxes = document.getElementsByClassName("filterItem")
 let enabled = false
 let currentFilters = []
 
-for (let item in filterBoxes) {
-    console.log(filterBoxes[item])
+for (let item of filterBoxes) {
+    item.addEventListener("change", function (e) {
+        const text = item.textContent.trim().toLowerCase()
+        const checked = item.querySelector('input').checked
+        apiData(2, text, checked)
+        if(checked) {
+            currentFilters.push(text)
+        } else {
+            const number = currentFilters.find(text)
+            console.log(number)
+            currentFilters.splice(number, 1)
+        }
+        console.log(currentFilters)
+    })
 }
-
-// Arbetar
-filterTab.addEventListener("click", function(e) {
-    const item = e.target
-    if(item.tagName === "LABEL") {
-        console.log(item.textContent.trim())
-        const checkbox = item.querySelector('input[type="checkbox"]');
-        console.log(checkbox.checked)
-        return
-    } else {
-        console.log(item.checked)
-    }
-})
 
 
 filter.addEventListener("click", function(e) {
