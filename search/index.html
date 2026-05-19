@@ -49,46 +49,52 @@
                 <img src="../svg/bars-solid-full.svg" id="filter">
                 <div id="filters">
                     <div class="filterCheckItems">
-                        <label class="filterItem">
+                        <label class="filterItem checkClass">
                             Rods
                             <input type="checkbox">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="filterItem">
+                        <label class="filterItem checkClass">
                             Baits
                             <input type="checkbox">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="filterItem">
+                        <label class="filterItem checkClass">
                             Tools
                             <input type="checkbox">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="filterItem">
+                        <label class="filterItem checkClass">
                             Hooks
                             <input type="checkbox">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="filterItem">
-                            <label>Reels</label>
+                        <label class="filterItem checkClass">
+                            Reels
                             <input type="checkbox">
                             <span class="checkmark"></span>
                         </label>
-                        <label class="filterItem">
+                        <label class="filterItem checkClass">
                             Baits
                             <input type="checkbox">
                             <span class="checkmark"></span>
                         </label>
                     </div>
-                    <div id="filterBar">
-                        <div class="slider"></div>
-                        <div class="bars">
-                            <input class="sliderBar" id="barMin" type="range" min="0" max="5000" step="100" value="100">
-                            <input class="sliderBar" id="barMax" type="range" min="0" max="5000" step="100" value="500">
-                        </div>
-                        <div class="barTxt">
-                            <label id="barMinTxt">100</label>
-                            <label id="barMaxTxt">500</label>
+                    <div id="filterCost">
+                        <label class="checkClass">
+                            <input type="checkbox" id="costCheck">
+                            <span class="checkmark"></span>
+                            Cost
+                        </label>
+                        <div class="costInputs"> 
+                            <label>   
+                                Min  
+                                <input class="costInput" id="costMin" type="number" min="0" max="5000" step="100" value="100">
+                            </label>
+                            <label>
+                                <input class="costInput" id="costMax" type="number" min="0" max="5000" step="100" value="500">
+                                Max
+                            </label>
                         </div>
                     </div>
                 </div>

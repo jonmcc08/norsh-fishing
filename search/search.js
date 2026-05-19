@@ -4,34 +4,53 @@ const searchParams = new URLSearchParams(window.location.search);
 
 let productList = []
 let originalList = []
+let removedItems = []
 
-async function apiData(term, string, filterData) {
+async function apiData(term, string) {
 
     const response = await fetch("https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI/products.json");
     const api = await response.json();
     const productsPage = document.getElementById("products");
 
+    productsPage.innerHTML = ""
 
     if (term === 1) {
         productList = searchListing(string.split(" "), api.products)
         console.log(productList)
         if (productList.length == 0) {
-            const div = renderError("No items matched with: ")
+            const div = renderError(`No items matched with: ${string}`)
             productsPage.appendChild(div)
             return
         }
         originalList = productList
     } else if (term === 2) {
-        // Filter sectionen
-        const temp = filterSorting(string, filterData, productList)
-        
+        // Filter sektionen
+        if (string.length > 0) {
+            productList = filterSorting(string, originalList)
+        } else {
+            productList = originalList
+        }
+    
+    } else if (term === 3) {
+        // Filter sektionen gällande priser
+        console.log("Kommer hit")
+        if(string === false) {
+            console.log(false)
+            removedItems.forEach(item => {
+                productList.push(item)
+            })
+            removedItems = []
+        } else {
+            console.log(true)
+            productList = priceSorting(string[0], string[1], productList)
+        }
     } else {
         productList = api.products
         originalList = productList
     }
 
     if(productList.length == 0) {
-        const div = 
+        const div = renderError("No items matched with the filters")
         productsPage.appendChild(div)
         return
     }
@@ -95,23 +114,44 @@ function searchListing(searchTerm, products) {
     return newProducts
 }
 
-function filterSorting(filter, data, items) {
-    if(data) {
-        for(let i = 0; i < items.length; i++) {
-            const item = items[i]
-            console.log(item.productType)
-            console.log(filter)
-            if(!(item.productType == filter)) {
-                console.log("Splicing")
-                productList.splice(i, 1)
-                console.log(productList)
+function filterSorting(filters, items) {
+    const returnData = []
+    filters.forEach(filter => {
+        if(filters.length > 0) {
+            for(let i = 0; i < items.length; i++) {
+                const item = items[i]
+                if(item.productType == filter) {
+                    returnData.push(item)
+                }
             }
+        } 
+    })
+    console.log(returnData)
+    return returnData
+}
+
+function priceSorting(min, max, items) {
+    const returnData = []
+    console.log(`Min: ${min} \nMax: ${max}`)
+    for(let i = 0; i < items.length; i++) {
+        const item = items[i]
+        console.log(item.price)
+        if(min <= item.price && item.price <= max) {
+            returnData.push(item)
+            console.log("Product matches!")
+        } else {
+            removedItems.push(item)
         }
-        console.log()
-    } else {
-        console.log(filter)
-        console.log(items)
     }
+    for(let i = 0; i < removedItems.length; i++) {
+        const item = removedItems[i]
+        if(min <= item.price && item.price <= max) {
+            returnData.push(item)
+            removedItems.slice(i, 1)
+        }
+    }
+    console.log(returnData)
+    return returnData
 }
 
 btn.addEventListener("click", searchPress)
@@ -126,3 +166,4 @@ if (searchParams.size === 0) {
 
     apiData(1, searchTerm.toLowerCase());
 }
+

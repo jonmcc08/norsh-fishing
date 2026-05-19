@@ -2,24 +2,75 @@ const filter = document.getElementById("filter")
 const filterTab = document.getElementById("filters")
 const filterContainer = document.getElementById("filterContainer")
 const filterBoxes = document.getElementsByClassName("filterItem")
+
+const costChecked = document.getElementById("costCheck")
+const costMax = document.getElementById("costMax")
+const costMin = document.getElementById("costMin")
+
 let enabled = false
 let currentFilters = []
+
+let costMaxValue = Number(costMax.value)
+let costMinValue = Number(costMin.value)
+
+costMax.title = `Select a value equal or over ${Number(costMin.value) + 1}`
+costMin.title = `Select a value equal or below ${Number(costMax.value) - 1}`
 
 for (let item of filterBoxes) {
     item.addEventListener("change", function (e) {
         const text = item.textContent.trim().toLowerCase()
-        const checked = item.querySelector('input').checked
-        apiData(2, text, checked)
+        const checked = item.querySelector("input").checked
         if(checked) {
             currentFilters.push(text)
         } else {
-            const number = currentFilters.find(text)
+            const number = currentFilters.indexOf(text)
             console.log(number)
             currentFilters.splice(number, 1)
+        }
+        apiData(2, currentFilters)
+        if (costChecked.checked === true) {
+            apiData(3, [costMinValue, costMaxValue])
         }
         console.log(currentFilters)
     })
 }
+
+costMax.addEventListener("change", function (e) {
+    if (costMax.value <= costMin.value) {
+        costMax.value = costMaxValue
+    } else {
+        costMaxValue = Number(costMax.value)
+        costMin.title = `Select a value equal or below ${Number(costMax.value) - 1}`
+        if(costChecked.checked) {
+            apiData(3, [costMinValue, costMaxValue])
+        }
+    }
+})
+
+costMin.addEventListener("change", function (e) {
+    if (costMin.value >= costMax.value) {
+        costMin.value = costMinValue
+    } else {
+        costMinValue = Number(costMin.value)
+        costMax.title = `Select a value equal or over ${Number(costMin.value) + 1}`
+        if(costChecked.checked) {
+            apiData(3, [costMinValue, costMaxValue])
+        }
+    }
+})
+
+
+costChecked.addEventListener("change", function (e) {
+    const checked = costChecked.checked
+    console.log(checked)
+    if(checked) {
+        apiData(3, [costMinValue, costMaxValue])
+    } else {
+        apiData(3, false)
+    }
+})
+
+
 
 
 filter.addEventListener("click", function(e) {
@@ -38,18 +89,4 @@ filter.addEventListener("click", function(e) {
         filter.src = "../svg/bars-solid-full.svg"
         enabled = false
     }
-})
-
-// Test för slider
-const minBar = document.getElementById("barMin")
-const maxBar = document.getElementById("barMax")
-const minBarTxt = document.getElementById("barMinTxt")
-const maxBarTxt = document.getElementById("barMaxTxt")
-
-minBar.addEventListener("input", function() {
-    minBarTxt.innerHTML = minBar.value
-})
-
-maxBar.addEventListener("input", function() {
-    maxBarTxt.innerHTML = maxBar.value
 })
