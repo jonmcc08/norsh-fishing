@@ -22,13 +22,14 @@ async function apiData(term, string) {
             productsPage.appendChild(div)
             return
         }
-        originalList = productList
+        originalList = [...productList]
     } else if (term === 2) {
         // Filter sektionen
         if (string.length > 0) {
             productList = filterSorting(string, originalList)
         } else {
-            productList = originalList
+            productList = [...originalList]
+            removedItems = []
         }
     
     } else if (term === 3) {
@@ -46,8 +47,10 @@ async function apiData(term, string) {
         }
     } else {
         productList = api.products
-        originalList = productList
+        originalList = [...productList]
     }
+    console.log(productList)
+    console.log(removedItems)
 
     if(productList.length == 0) {
         const div = renderError("No items matched with the filters")
@@ -143,11 +146,11 @@ function priceSorting(min, max, items) {
             removedItems.push(item)
         }
     }
-    for(let i = 0; i < removedItems.length; i++) {
+    for(let i = removedItems.length - 1; i >= 0; i--) {
         const item = removedItems[i]
         if(min <= item.price && item.price <= max) {
             returnData.push(item)
-            removedItems.slice(i, 1)
+            removedItems.splice(i, 1)
         }
     }
     console.log(returnData)

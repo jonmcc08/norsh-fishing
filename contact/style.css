@@ -1,0 +1,13 @@
+#content {
+    display: flex;
+    justify-content: center;
+}
+
+.forumdiv {
+    display: flex;
+    align-items: center;
+}
+
+.forumdiv img {
+    width: 36px;
+}

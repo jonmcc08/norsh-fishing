@@ -26,11 +26,12 @@ for (let item of filterBoxes) {
             const number = currentFilters.indexOf(text)
             console.log(number)
             currentFilters.splice(number, 1)
+            apiData(3, false)
         }
         apiData(2, currentFilters)
         if (costChecked.checked === true) {
             apiData(3, [costMinValue, costMaxValue])
-        }
+        } 
         console.log(currentFilters)
     })
 }
@@ -67,6 +68,9 @@ costChecked.addEventListener("change", function (e) {
         apiData(3, [costMinValue, costMaxValue])
     } else {
         apiData(3, false)
+        if (currentFilters.length > 0) {
+            apiData(2, currentFilters)
+        }
     }
 })
 
