@@ -3,6 +3,34 @@ const submit = document.getElementById("submitBtn")
 
 const emailTypes = ["@gmail.com", "@skola.taby.se", "@hotmail.com", "@yahoo.com", "@taby.se"]
 const phoneNumberTypes = ["+46", "0"]
+let phone = false
+
+for (let form of forms) {
+    const input = form.querySelector("input")
+
+    if (input.type === "tel") {
+        input.addEventListener("input", function(e) {
+            let plusPlace = 0
+                if (input.value.startsWith("+46")) {
+                plusPlace = 2
+            }
+            if(e.data === null) {
+                input.value = ""
+                return
+            }
+            const i = input.value.length
+            if (i === (3 + plusPlace) || i === (7 + plusPlace) || i === (10 + plusPlace)) {
+                input.value += "-"
+                console.log("-")
+            }
+            if (i === (13 + plusPlace)) {
+                phone = true
+            } else {
+                phone = false
+            }
+        })
+    }
+}
 
 submit.addEventListener("click", function () {
 
@@ -28,10 +56,15 @@ submit.addEventListener("click", function () {
             }
         } else if (input.type === "tel") {
             const starsWith = phoneNumberTypes.some(location => input.value.startsWith(location))
-            if (!starsWith && (7 <= input.value.length <= 9)) {
-                errorMsg = "Please re-enter the phone number with the correct type of this list: " + phoneNumberTypes.join("xx-xxx-xx-xx")
+            if (!starsWith) {
+                errorMsg = "Please re-enter the phone number with the correct type of this list: " + phoneNumberTypes.join("/") + "xx-xxx-xx-xx"
+                error = true
             }
-            error = true
+            if (!phone) {
+                errorMsg = "Please re-enter the phone number with the correct type of this list: " + phoneNumberTypes.join("/") + "xx-xxx-xx-xx"
+                error = true
+            }
+    
         }
         if (!error) {
             currentValues.push({[input.type]: input.value})
@@ -42,5 +75,8 @@ submit.addEventListener("click", function () {
     if (errorMsg != null) {
         window.alert(errorMsg)
         return
+    } else {
+        window.alert("Message has been sent!")
+        window.location = ""
     }
 })

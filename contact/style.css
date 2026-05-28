@@ -1,6 +1,22 @@
 #content {
     display: flex;
     justify-content: center;
+    flex-direction: row;
+    gap: 40px;
+}
+
+#map {
+    display: flex;
+    flex-direction: column;
+}
+
+#content form {
+    font-size: 30px;
+    height: 60%;
+}
+
+#content iframe {
+
 }
 
 .forumdiv {

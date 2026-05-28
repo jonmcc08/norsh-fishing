@@ -36,8 +36,13 @@ async function checkoutApiData() {
             const productQuantity = amountNumbers[productId]
             const div = document.createElement("div")
             const product = api.products.find(p => p.id === Number(productId))
+            const img = new Image() 
             let productImage = "images/No_Image_Available.jpg"
-
+            img.src = productImage
+            
+            if(!img.complete) { // Kollar om bilden finns, annars ändrar den till ../ på grund av upplägget
+                productImage = "../images/No_Image_Available.jpg"
+            }
             const productPrice = (Number(product.price) * Number(productQuantity))
             console.log(productPrice)
 
