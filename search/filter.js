@@ -24,7 +24,6 @@ for (let item of filterBoxes) {
             currentFilters.push(text)
         } else {
             const number = currentFilters.indexOf(text)
-            console.log(number)
             currentFilters.splice(number, 1)
             apiData(3, false)
         }
@@ -32,7 +31,6 @@ for (let item of filterBoxes) {
         if (costChecked.checked === true) {
             apiData(3, [costMinValue, costMaxValue])
         } 
-        console.log(currentFilters)
     })
 }
 
@@ -63,7 +61,6 @@ costMin.addEventListener("change", function (e) {
 
 costChecked.addEventListener("change", function (e) {
     const checked = costChecked.checked
-    console.log(checked)
     if(checked) {
         apiData(3, [costMinValue, costMaxValue])
     } else {
@@ -79,13 +76,11 @@ costChecked.addEventListener("change", function (e) {
 
 filter.addEventListener("click", function(e) {
     if(!enabled) {
-        console.log("Opening")
         filterContainer.classList.remove("filterClosed")
         filterTab.style.width = "360px"
         filter.src = "../svg/x-solid-full.svg"
         enabled = true
     } else {
-        console.log("Closing")
         filterTab.style.width = "0px"
         setTimeout(() => {
             filterContainer.classList.add("filterClosed")

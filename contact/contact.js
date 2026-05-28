@@ -69,7 +69,6 @@ submit.addEventListener("click", function () {
         if (!error) {
             currentValues.push({[input.type]: input.value})
         }
-        console.log(currentValues)
     }
 
     if (errorMsg != null) {

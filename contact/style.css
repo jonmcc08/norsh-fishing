@@ -3,27 +3,98 @@
     justify-content: center;
     flex-direction: row;
     gap: 40px;
+    padding: 40px 20px;
 }
 
 #map {
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 #content form {
-    font-size: 30px;
-    height: 60%;
+    font-size: 16px;
+    width: 100%;
+    max-width: 400px;
 }
 
-#content iframe {
-
+#content form h2 {
+    font-size: 30px;
+    margin-bottom: 25px;
+    background-color: white;
+    border: 2px solid rgb(224, 224, 224);
+    border-radius: 8px;
+    padding: 5px 15px;
+    text-align: center;
 }
 
 .forumdiv {
     display: flex;
     align-items: center;
+    background-color: white;
+    border: 2px solid rgb(224, 224, 224);
+    border-radius: 8px;
+    padding: 5px 15px;
+    margin-bottom: 20px;
 }
 
 .forumdiv img {
-    width: 36px;
+    width: 20px;
+    opacity: 0.5;
+    margin-right: 12px;
+}
+
+.forumdiv:focus-within img {
+    opacity: 1;
+}
+
+.forumdiv input {
+    border: none;
+    background: transparent;
+    padding: 12px 0;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+    color: rgb(51, 51, 51);
+}
+
+#submitBtn {
+    width: 100%;
+    padding: 15px;
+    background-color: rgb(105, 105, 105);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#submitBtn:hover {
+    background-color: rgb(61, 61, 61);
+}
+
+@media (max-width: 768px) {
+    #content {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        padding: 20px 15px;
+    }
+
+    #content form {
+        max-width: 100%;
+    }
+
+    #map {
+        width: 100%;
+        margin-top: 10px;
+        align-items: center;
+    }
+
+    #map iframe {
+        width: 100% !important;
+        max-width: 400px;
+        height: 250px;
+    }
 }

@@ -8,76 +8,76 @@ let removedItems = []
 
 async function apiData(term, string) {
 
-    const response = await fetch("https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI/products.json");
-    const api = await response.json();
-    const productsPage = document.getElementById("products");
+    const productsPage = document.getElementById("products")
 
-    productsPage.innerHTML = ""
+    try {
 
-    if (term === 1) {
-        productList = searchListing(string.split(" "), api.products)
-        console.log(productList)
-        if (productList.length == 0) {
-            const div = renderError(`No items matched with: ${string}`)
+        const response = await fetch("https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI/products.json")
+        const api = await response.json()
+
+        productsPage.innerHTML = ""
+
+        if (term === 1) {
+            productList = searchListing(string.split(" "), api.products)
+            if (productList.length == 0) {
+                const div = renderError(`No items matched with: ${string}`)
+                productsPage.appendChild(div)
+                return
+            }
+            originalList = [...productList]
+        } else if (term === 2) {
+            // Filter sektionen
+            if (string.length > 0) {
+                productList = filterSorting(string, originalList)
+            } else {
+                productList = [...originalList]
+                removedItems = []
+            }
+        } else if (term === 3) {
+            // Filter sektionen gällande priser
+            if(string === false) {
+                removedItems.forEach(item => {
+                    productList.push(item)
+                })
+                removedItems = []
+            } else {
+                productList = priceSorting(string[0], string[1], productList)
+            }
+        } else {
+            productList = api.products
+            originalList = [...productList]
+        }
+
+        if(productList.length == 0) {
+            const div = renderError("No items matched with the filters")
             productsPage.appendChild(div)
             return
         }
-        originalList = [...productList]
-    } else if (term === 2) {
-        // Filter sektionen
-        if (string.length > 0) {
-            productList = filterSorting(string, originalList)
-        } else {
-            productList = [...originalList]
-            removedItems = []
-        }
-    
-    } else if (term === 3) {
-        // Filter sektionen gällande priser
-        console.log("Kommer hit")
-        if(string === false) {
-            console.log(false)
-            removedItems.forEach(item => {
-                productList.push(item)
-            })
-            removedItems = []
-        } else {
-            console.log(true)
-            productList = priceSorting(string[0], string[1], productList)
-        }
-    } else {
-        productList = api.products
-        originalList = [...productList]
-    }
-    console.log(productList)
-    console.log(removedItems)
 
-    if(productList.length == 0) {
-        const div = renderError("No items matched with the filters")
+
+        for (let i = 0; i < productList.length; i++) {
+           const div = document.createElement("div")
+            div.classList.add("productPage")
+            div.id = productList[i].id
+            let productimage = "../images/No_Image_Available.jpg"
+            if (productList[i].imageLink !== "/images/") {
+                productimage = `https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI${productList[i].imageLink}`
+            }
+            div.innerHTML = `
+            <a href="../products/index.html?id=${productList[i].id}">
+                <img class="productImage" src="${productimage}">
+                <h3 class="productName pLeft">${productList[i].name}</h3>
+                <div class="productInfo pLeft">
+                    <p class="productDescription"><i class="fa-solid fa-table-list"></i>${productList[i].productDescription}</p>
+                    <p class="productPrice">${productList[i].price} kr</p>
+                </div>
+            </a>
+            `
         productsPage.appendChild(div)
-        return
     }
-
-
-    for (let i = 0; i < productList.length; i++) {
-        const div = document.createElement("div");
-        div.classList.add("productPage");
-        div.id = productList[i].id
-        let productimage = "../images/No_Image_Available.jpg";
-        if (productList[i].imageLink !== "/images/") {
-            productimage = `https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI${productList[i].imageLink}`;
-        };
-        div.innerHTML = `
-        <a href="../products/index.html?id=${productList[i].id}">
-            <img class="productImage" src="${productimage}">
-            <h3 class="productName pLeft">${productList[i].name}</h3>
-            <div class="productInfo pLeft">
-                <p class="productDescription"><i class="fa-solid fa-table-list"></i>${productList[i].productDescription}</p>
-                <p class="productPrice">${productList[i].price} kr</p>
-            </div>
-        </a>
-        `;
-        productsPage.appendChild(div);
+    } catch(error) {
+        console.error("Error loading homepage products:", error)
+        productsPage.innerHTML = "<p>Failed to load products.</p>"
     }
 }
 
@@ -129,19 +129,15 @@ function filterSorting(filters, items) {
             }
         } 
     })
-    console.log(returnData)
     return returnData
 }
 
 function priceSorting(min, max, items) {
     const returnData = []
-    console.log(`Min: ${min} \nMax: ${max}`)
     for(let i = 0; i < items.length; i++) {
         const item = items[i]
-        console.log(item.price)
         if(min <= item.price && item.price <= max) {
             returnData.push(item)
-            console.log("Product matches!")
         } else {
             removedItems.push(item)
         }
@@ -153,7 +149,6 @@ function priceSorting(min, max, items) {
             removedItems.splice(i, 1)
         }
     }
-    console.log(returnData)
     return returnData
 }
 
@@ -164,7 +159,6 @@ if (searchParams.size === 0) {
     apiData(false);
 } else {
     const searchTerm = searchParams.get("search")
-    console.log(searchTerm)
     searchValue.value = searchTerm
 
     apiData(1, searchTerm.toLowerCase());

@@ -1,22 +1,17 @@
 let checkoutData = JSON.parse(localStorage.getItem("cart")) || []
-const checkout = document.getElementById("checkout")
-const containerCheckout = document.getElementById("checkoutContainer")
-const box = document.getElementById("checkoutBox")
-let scrollYBefore = window.scrollY
-
-const navBar = document.getElementById("links")
+const checkout = document.getElementById("content")
 
 async function checkoutApiData() {
 
     try {
-        const apiLink = "https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI";
-        const response = await fetch(apiLink + "/products.json");
-        const api = await response.json();
+        const apiLink = "https://raw.githubusercontent.com/jonmcc08/jonmcc08.github.io/main/fishingAPI"
+        const response = await fetch(apiLink + "/products.json")
+        const api = await response.json()
 
         checkoutData = JSON.parse(localStorage.getItem("cart")) 
 
         checkout.innerHTML = ""
-
+        
         if (checkoutData === null || checkoutData.length === 0) {
             const div = document.createElement("div")
             div.classList.add("noItems")
@@ -29,7 +24,6 @@ async function checkoutApiData() {
             }, {})
             let fullPrice = 0
             for (const productId in amountNumbers) {
-
                 const productQuantity = amountNumbers[productId]
                 const div = document.createElement("div")
                 const product = api.products.find(p => p.id === Number(productId))
@@ -74,10 +68,10 @@ async function checkoutApiData() {
             const bottomDiv = document.createElement("div")
             bottomDiv.id = "bottomCheckout"
             bottomDiv.innerHTML = `
-            <button class="checkBtn" id="clearCart">Clear cart</button>
-            <button class="checkBtn">Checkout</button>
+            <button id="clearCart">Clear cart</button>
+            <button onclick="checkoutOpen()">Checkout</button>
             <h3>Total: ${fullPrice} kr</h3>
-            ` // Checkout knappen ska inte ha någon funktion då det inte ska göras.
+            `// Checkout knappen ska inte ha någon funktion då det inte ska göras.
             checkout.appendChild(bottomDiv)
             cartRendered()
         }
@@ -87,43 +81,7 @@ async function checkoutApiData() {
     }
 }
 
-
-containerCheckout.addEventListener("mouseenter", function (e) {
-    checkout.classList.remove("hidden")
-    navBar.style.overflow = "visible"
-    box.classList.add("whiteBorder")
-    checkoutApiData()
-})
-
-containerCheckout.addEventListener("mouseleave", function(e) {
-    checkout.classList.add("hidden")
-    navBar.style.overflow = "hidden"
-    box.classList.remove("whiteBorder")
-})
-
-window.addEventListener("scroll", function (e) {
-    const currentY = window.scrollY
-
-    const yDifference = currentY - scrollYBefore
-
-    if (yDifference > 20) {
-        navBar.style.height = "0px"
-        scrollYBefore = currentY
-    } else if (yDifference < -20) {
-        navBar.style.height = "43px"
-        scrollYBefore = currentY
-    }
-})
-
-function cartRendered() {
-    const clearCartBtn = document.getElementById("clearCart")
-
-    clearCartBtn.addEventListener("click", function(e) {
-        localStorage.removeItem("cart")
-        cartAmount = []
-        checkoutApiData()
-    })
-}
+checkoutApiData()
 
 checkout.addEventListener("click", function (e) {
     const id = e.target.getAttribute("btn-id");
