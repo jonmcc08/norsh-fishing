@@ -28,12 +28,8 @@ async function checkoutApiData() {
                 const div = document.createElement("div")
                 const product = api.products.find(p => p.id === Number(productId))
                 const img = new Image() 
-                let productImage = "images/No_Image_Available.jpg"
-                img.src = productImage
+                let productImage = "../images/No_Image_Available.jpg"
                 
-                if(!img.complete) { // Kollar om bilden finns, annars ändrar den till ../ på grund av upplägget
-                    productImage = "../images/No_Image_Available.jpg"
-                }
                 const productPrice = (Number(product.price) * Number(productQuantity))
 
                 fullPrice += productPrice
@@ -69,11 +65,10 @@ async function checkoutApiData() {
             bottomDiv.id = "bottomCheckout"
             bottomDiv.innerHTML = `
             <button id="clearCart">Clear cart</button>
-            <button onclick="checkoutOpen()">Checkout</button>
+            <button>Checkout</button>
             <h3>Total: ${fullPrice} kr</h3>
             `// Checkout knappen ska inte ha någon funktion då det inte ska göras.
             checkout.appendChild(bottomDiv)
-            cartRendered()
         }
     } catch(error) {
         console.error("Error loading homepage products:", error)
